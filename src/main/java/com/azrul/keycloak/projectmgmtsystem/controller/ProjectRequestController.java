@@ -25,7 +25,7 @@ public class ProjectRequestController {
 
     @GetMapping(path = "/")
     public String index() {
-        return "external";
+        return "public facing";
     }
 
     @GetMapping("/logout")
@@ -35,13 +35,13 @@ public class ProjectRequestController {
     }
     
     @PostMapping(path = "/projectrequest")
-    public void addUpdateProjectRequest(ProjectRequest project){
+    public void addProject(ProjectRequest project){
         projectRequestDAO.save(project);
     }
 
 
     @GetMapping(path = "/projectrequest")
-    public List<ProjectRequest> getAllProjectRequests() {
+    public List<ProjectRequest> queryProjects() {
         return projectRequestDAO.findAll();
     } 
  
