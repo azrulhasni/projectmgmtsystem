@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.azrul.keycloak.projectmgmtsystem.repository.ProjectRequestRepository;
 import java.security.Principal;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -35,14 +39,27 @@ public class ProjectRequestController {
     }
     
     @PostMapping(path = "/projectrequest")
-    public void addProject(ProjectRequest project){
-        projectRequestDAO.save(project);
+    public String addProject(ProjectRequest project){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Set<String> roles = authentication.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.toSet());
+        if (roles.contains("ProjectRequestor")){
+            projectRequestDAO.save(project);
+            return "SUCCESS";
+        }else{
+            return "FAIL";
+        }
     }
 
 
     @GetMapping(path = "/projectrequest")
     public List<ProjectRequest> queryProjects() {
-        return projectRequestDAO.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Set<String> roles = authentication.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.toSet());
+        if (roles.contains("ProjectApprover")){
+            return projectRequestDAO.findAll();
+        }else{
+            return List.of();
+        }
     } 
  
 }
