@@ -215,7 +215,7 @@ writing). Let us install Keycloak on our Docker
 
 ![](README.images/jRIXfN.jpg)
 
--   Enter leaveapproval-client in the Client ID
+-   Enter projectapproval-client in the Client ID
 
 ![](README.images/YQEFb8.jpg)
 
