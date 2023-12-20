@@ -34,6 +34,7 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>9.36</version>
         </dependency>
+    
         
         <dependency>
             <groupId>org.springframework.boot</groupId>
